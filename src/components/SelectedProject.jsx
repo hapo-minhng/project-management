@@ -1,9 +1,9 @@
-export default function SelectedProject({ project }) {
-    const formattedDate = new Date(project.date).toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "short",
-        date: "numeric"
-    });
+export default function SelectedProject({ project, onDelete }) {
+  const formattedDate = new Date(project.date).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    date: "numeric",
+  });
 
   return (
     <div className="w-[35rem] mt-16">
@@ -12,14 +12,15 @@ export default function SelectedProject({ project }) {
           <h1 className="text-3xl font-bold text-stone-600 mb-2">
             {project.title}
           </h1>
-          <button className="text-stone-600 hover:text-stone-950">
+          <button
+            className="text-stone-600 hover:text-stone-950"
+            onClick={onDelete}
+          >
             Delete
           </button>
         </div>
         <p className="mb-4 text-stone-400">{formattedDate}</p>
-        <p className="text-stone-600 whitespace-pre-wrap">
-          {project.desc}
-        </p>
+        <p className="text-stone-600 whitespace-pre-wrap">{project.desc}</p>
       </header>
     </div>
   );
