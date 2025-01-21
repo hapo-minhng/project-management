@@ -2,7 +2,7 @@ import { useRef } from "react";
 import Input from "./Input";
 import Modal from "./Modal";
 
-export default function Project({ onAdd }) {
+export default function Project({ onAdd, onCancel }) {
   const modal = useRef();
 
   const titleRef = useRef();
@@ -14,11 +14,7 @@ export default function Project({ onAdd }) {
     const desc = descRef.current.value;
     const date = dateRef.current.value;
 
-    if (
-      title.trim() === "" ||
-      desc.trim() === "" ||
-      date.trim() === ""
-    ) {
+    if (title.trim() === "" || desc.trim() === "" || date.trim() === "") {
       modal.current.open();
       return;
     }
@@ -33,14 +29,19 @@ export default function Project({ onAdd }) {
   return (
     <>
       <Modal ref={modal} caption="Okay">
-        <h2>Invalid Input</h2>
-        <p>Oops! Looks like you forgot to enter a value.</p>
-        <p>Please make sure you provide a valid value for every input field.</p>
+        <h2 className="text-xl font-bold text-stone-700 my-4">Invalid Input</h2>
+        <p className="text-stone-600 mb-4">
+          Oops! Looks like you forgot to enter a value.
+        </p>
+        <p className="text-stone-600 mb-4">
+          Please make sure you provide a valid value for every input field.
+        </p>
       </Modal>
       <div className="w-[35rem] mt-16">
         <menu className="flex items-center justify-end gap-4 my-4">
           <li className="flex justify-between my-4">
-            <button className="text-stone-800 hover:text-stone-950">
+            <button className="text-stone-800 hover:text-stone-950"
+            onClick={onCancel}>
               Cancel
             </button>
           </li>
