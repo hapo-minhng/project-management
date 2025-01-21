@@ -19,33 +19,38 @@ function App() {
   }
 
   function handleProject(projectData) {
-    setProjectState(prevState => {
+    setProjectState((prevState) => {
+      const projectId = Math.random();
       const newProject = {
         ...projectData,
-        id: Math.random()
-      }
+        id: Math.random(),
+      };
 
       return {
         ...prevState,
-        projects: [...prevState.projects, newProject]
+        selectedProjectId: undefined,
+        projects: [...prevState.projects, newProject],
       };
-    })
+    });
   }
 
   let content;
 
   if (projectState.selectedProjectId === null) {
-    content = <Project onAdd={handleProject} />
+    content = <Project onAdd={handleProject} />;
   } else if (projectState.selectedProjectId === undefined) {
-    content = <NoProject onAddProject={handleAddProject} />
+    content = <NoProject onAddProject={handleAddProject} />;
   }
 
-    return (
-      <main className="h-screen my-8 flex gap-8">
-        <Sidebar onAddProject={handleAddProject} />
-        {content}
-      </main>
-    );
+  return (
+    <main className="h-screen my-8 flex gap-8">
+      <Sidebar
+        onAddProject={handleAddProject}
+        projects={projectState.projects}
+      />
+      {content}
+    </main>
+  );
 }
 
 export default App;
